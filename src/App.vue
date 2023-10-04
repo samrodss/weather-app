@@ -1,14 +1,22 @@
 <template>
   <div class="container flex flex-col w-screen h-screen max-w-screen-xl m-auto">
-    <input
-      type="text"
-      @keypress="fetchWeather"
-      id="search"
-      v-model="query"
-      placeholder="Search location"
-      class="w-4/5 p-2 mx-auto mt-2 font-bold rounded-sm"
-    />
-    <div class="w-4/5 mx-auto mt-5 h-1/2">
+    <form @submit.prevent="fetchWeather">
+      <div class="flex items-center justify-center w-4/5 gap-1 mx-auto">
+        <input
+          type="text"
+          v-model="query"
+          placeholder="Search location"
+          class="w-1/2 p-2 mt-2 font-bold rounded-sm"
+        />
+        <button
+          type="submit"
+          class="w-1/2 p-2 mt-2 font-bold text-white bg-black rounded-sm cursor-pointer hover:bg-amber-300 hover:text-black"
+        >
+          Search weather
+        </button>
+      </div>
+    </form>
+    <div class="w-4/5 mx-auto mt-5 h-1/2 bg">
       <!-- Use v-if to check if 'weather' is defined before accessing its properties -->
       <Temperature
         v-if="weather && weather.name && weather.sys.country"
@@ -45,8 +53,8 @@ export default {
   methods: {
     ...mapActions('weather', ['fetchWeatherData']), // Map the 'fetchWeatherData' action from Vuex
 
-    async fetchWeather(e) {
-      if (e.key == 'Enter') {
+    async fetchWeather() {
+      if (this.query.trim() !== '') {
         await this.fetchWeatherData(this.query) // Dispatch the action to fetch weather data
         this.query = ''
       }
