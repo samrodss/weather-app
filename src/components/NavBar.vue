@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="flex items-center w-4/5 mx-auto justify-evenly">
-      <img src="left-arrow.png" alt="previous icon" @click="goToPreviousRoute" />
+      <img src="/left-arrow.png" alt="previous icon" @click="goToPreviousRoute" />
       <router-link
         class="font-bold"
         v-for="(route, index) in routes"
@@ -11,7 +11,7 @@
       >
         {{ route.name }}
       </router-link>
-      <img src="right-arrow.png" alt="next icon" @click="goToNextRoute" />
+      <img src="/right-arrow.png" alt="next icon" @click="goToNextRoute" />
     </nav>
   </div>
 </template>
